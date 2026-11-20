@@ -10,117 +10,90 @@
 <body>
   <main class="shell">
     <header class="top">
-      <div>
-        <p class="eyebrow">PERSONAL WORKSPACE</p>
-        <h1>Ainayya <span>Studio Log</span></h1>
-        <p class="sub">Content Planner · Work Tracker</p>
-      </div>
+      <div><p class="eyebrow">PERSONAL WORKSPACE</p><h1>Ainayya <span>Studio Log</span></h1><p class="sub">Content Planner · Work Tracker</p></div>
       <span class="pill">ONE BRAND</span>
     </header>
 
     <section id="authPanel" class="card">
-      <h2>Sign in</h2>
-      <p class="muted">Buat akun pribadi untuk menyimpan timesheet di database.</p>
+      <h2>Sign in</h2><p class="muted">Buat akun pribadi untuk menyimpan timesheet di database.</p>
       <label>Email<input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com"></label>
       <label>Password<input id="authPassword" type="password" autocomplete="current-password" placeholder="Minimal 6 karakter"></label>
-      <div class="actions">
-        <button id="signInBtn" class="primary">Sign in</button>
-        <button id="signUpBtn" class="ghost">Create account</button>
-      </div>
+      <div class="actions"><button id="signInBtn" class="primary">Sign in</button><button id="signUpBtn" class="ghost">Create account</button></div>
       <p id="authMessage" class="message" aria-live="polite"></p>
     </section>
 
     <section id="appPanel" hidden>
-      <div class="userbar">
-        <span id="userEmail" class="muted"></span>
-        <button id="signOutBtn" class="ghost small">Sign out</button>
-      </div>
-
+      <div class="userbar"><span id="userEmail" class="muted"></span><button id="signOutBtn" class="ghost small">Sign out</button></div>
       <section class="stats">
         <article class="card stat"><span>Tasks</span><strong id="statTasks">0</strong></article>
         <article class="card stat"><span>Hours</span><strong id="statHours">0</strong></article>
         <article class="card stat"><span>Completed</span><strong id="statDone">0</strong></article>
       </section>
-
-      <nav class="tabs">
-        <button class="tab active" data-tab="entry">Work entry</button>
-        <button class="tab" data-tab="log">Work log</button>
-        <button class="tab" data-tab="recap">Recap</button>
-      </nav>
+      <nav class="tabs"><button class="tab active" data-tab="entry">Work entry</button><button class="tab" data-tab="log">Work log</button><button class="tab" data-tab="recap">Recap</button></nav>
 
       <section id="entryTab" class="card tab-panel">
         <h2>Record your work</h2>
-        <div class="grid">
-          <label>Date<input id="workDate" type="date"></label>
-          <label>Status<select id="status"><option>In progress</option><option>Completed</option><option>On hold</option></select></label>
-        </div>
-        <label>Work title *<input id="title" placeholder="e.g. Prepare Sylviora launch content"></label>
-        <label>Content category
-          <select id="category">
-            <option value="Series">Series</option>
-            <option value="Other collection">Other collection</option>
-            <option value="General content">General content</option>
-            <option value="Other">Other / Custom</option>
+        <div class="grid"><label>Date<input id="workDate" type="date"></label><label>Status<select id="status"><option>In progress</option><option>Completed</option><option>On hold</option></select></label></div>
+        <label>Activity type *
+          <select id="activityType">
+            <option value="Content Posting">Content Posting</option>
+            <option value="Meeting">Meeting</option>
+            <option value="On-site Photoshoot / Videography">On-site Photoshoot / Videography</option>
+            <option value="Other Tasks">Other Tasks</option>
           </select>
         </label>
-        <div id="familyWrap">
-          <label>Family series<select id="family"></select></label>
+        <label>Work title *<input id="title" placeholder="e.g. Prepare PO Noora launch content"></label>
+
+        <div id="postingFields" class="conditional">
+          <div class="section-caption">CONTENT DETAILS</div>
+          <label>Collection / series *<select id="collectionSelect"><option value="">Loading catalog…</option></select></label>
+          <div class="inline-actions"><span id="collectionMeta" class="hint">Published collections sync from Ainayya's website. Upcoming collections can be added here.</span><button id="addCollectionBtn" type="button" class="ghost small">＋ Add upcoming</button></div>
+          <label>Product<select id="productSelect" disabled><option value="">Choose a collection first</option></select></label>
+          <div class="inline-actions"><span id="productMeta" class="hint">You can also add a product that is not online yet.</span><button id="addProductBtn" type="button" class="ghost small" disabled>＋ Add product</button></div>
+          <label>Content format<select id="format">
+            <option>Instagram Feed</option><option>Instagram Reels</option><option>Instagram Story</option><option>Carousel</option><option>Product Highlight</option><option>Campaign / Teaser</option><option>Copywriting / Caption</option><option>Content Planning</option><option>Scheduling / Posting</option><option>Community Engagement</option><option>Reporting / Evaluation</option><option>Other</option>
+          </select></label>
         </div>
-        <div id="collectionWrap" hidden>
-          <label id="collectionLabel">Collection<select id="collection"></select></label>
+
+        <div id="meetingFields" class="conditional" hidden>
+          <div class="section-caption">MEETING DETAILS</div>
+          <label>Meeting type<input id="meetingType" placeholder="e.g. Weekly content meeting"></label>
+          <label>Participants<input id="participants" placeholder="Names or teams involved"></label>
         </div>
-        <div id="productWrap">
-          <label>Product<select id="product" disabled></select></label>
-          <label>Or type product manually<input id="productManual" placeholder="Enter another product"></label>
+
+        <div id="shootFields" class="conditional" hidden>
+          <div class="section-caption">PRODUCTION DETAILS</div>
+          <label>Shoot type<select id="shootType"><option>Photography</option><option>Videography</option><option>Photography & Videography</option></select></label>
+          <label>Collection (optional)<select id="shootCollectionSelect"><option value="">Unassigned / general shoot</option></select></label>
+          <div class="inline-actions"><span class="hint">New collections are welcome, even before website launch.</span><button id="addShootCollectionBtn" type="button" class="ghost small">＋ Add upcoming</button></div>
+          <label>Location<input id="shootLocation" placeholder="Studio, outdoor location, store…"></label>
+          <label>Deliverables<textarea id="deliverables" rows="2" placeholder="e.g. campaign photos, product detail shots, reels footage"></textarea></label>
         </div>
-        <div id="customWrap" hidden>
-          <label>Collection / topic name<input id="customName" placeholder="Enter a collection or topic"></label>
+
+        <div id="otherFields" class="conditional" hidden>
+          <div class="section-caption">TASK DETAILS</div>
+          <label>Task type<input id="otherType" placeholder="e.g. Research, reporting, admin"></label>
         </div>
-        <label>Instagram format / work activity
-          <select id="format">
-            <option>Content Planning</option><option>Instagram Feed</option><option>Instagram Reels</option>
-            <option>Instagram Story</option><option>Carousel</option><option>Product Highlight</option>
-            <option>Product Photography</option><option>Campaign / Teaser</option><option>Copywriting / Caption</option>
-            <option>Research / Brainstorming</option><option>Content Production</option><option>Editing / Revision</option>
-            <option>Scheduling / Posting</option><option>Community Engagement</option><option>Reporting / Evaluation</option><option>Other</option>
-          </select>
-        </label>
-        <div class="grid">
-          <label>Start time<input id="startTime" type="time"></label>
-          <label>End time<input id="endTime" type="time"></label>
-        </div>
+
+        <div class="grid"><label>Start time<input id="startTime" type="time"></label><label>End time<input id="endTime" type="time"></label></div>
         <label>Manual duration (hours, optional)<input id="manualHours" type="number" min="0" step=".25" placeholder="e.g. 1.5"></label>
-        <label>Notes / deliverables<textarea id="notes" rows="3" placeholder="What did you work on?"></textarea></label>
-        <button id="saveEntry" class="primary full">＋ Save work entry</button>
-        <p id="entryMessage" class="message" aria-live="polite"></p>
+        <label>Notes<textarea id="notes" rows="3" placeholder="What did you work on? Decisions, follow-ups, or extra details…"></textarea></label>
+        <button id="saveEntry" class="primary full">＋ Save work entry</button><p id="entryMessage" class="message" aria-live="polite"></p>
       </section>
 
       <section id="logTab" class="card tab-panel" hidden>
         <h2>Work history</h2>
-        <div class="grid">
-          <label>Month<input id="filterMonth" type="month"></label>
-          <label>Category<select id="filterCategory"><option value="">All</option><option>Series</option><option>Other collection</option><option>General content</option><option>Other</option></select></label>
-        </div>
-        <label>Search<input id="search" placeholder="Search title, collection or product"></label>
-        <div id="entries" class="entries"></div>
+        <div class="grid"><label>Month<input id="filterMonth" type="month"></label><label>Activity<select id="filterCategory"><option value="">All activities</option><option>Content Posting</option><option>Meeting</option><option>On-site Photoshoot / Videography</option><option>Other Tasks</option></select></label></div>
+        <label>Search<input id="search" placeholder="Search title, collection or product"></label><div id="entries" class="entries"></div>
       </section>
 
       <section id="recapTab" class="card tab-panel" hidden>
-        <h2>Monthly recap</h2>
-        <label>Month<input id="recapMonth" type="month"></label>
-        <div class="grid">
-          <article class="mini"><span>Total hours</span><strong id="recapHours">0</strong></article>
-          <article class="mini"><span>Completed tasks</span><strong id="recapDone">0</strong></article>
-        </div>
-        <h3>Hours by activity</h3><div id="activityBreakdown"></div>
-        <h3>Hours by collection</h3><div id="collectionBreakdown"></div>
-        <h3>Status</h3><div id="statusBreakdown"></div>
+        <h2>Monthly recap</h2><label>Month<input id="recapMonth" type="month"></label>
+        <div class="grid"><article class="mini"><span>Total hours</span><strong id="recapHours">0</strong></article><article class="mini"><span>Completed tasks</span><strong id="recapDone">0</strong></article></div>
+        <h3>Hours by activity</h3><div id="activityBreakdown"></div><h3>Hours by collection</h3><div id="collectionBreakdown"></div><h3>Status</h3><div id="statusBreakdown"></div>
       </section>
-
-      <div class="actions export">
-        <button id="exportCsv" class="ghost">Export CSV</button>
-        <button id="exportJson" class="ghost">Backup JSON</button>
-      </div>
+      <div class="actions export"><button id="exportCsv" class="ghost">Export CSV</button><button id="exportJson" class="ghost">Backup JSON</button></div>
+      <p id="catalogStatus" class="sync-note"></p>
     </section>
     <footer>Personal workspace · Ainayya content planning</footer>
   </main>
