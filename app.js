@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { catalog, familySeries, otherCollections } from "./catalog.js";
 
 // 1) Replace these two values with your Supabase Project URL and anon/publishable key.
-const SUPABASE_URL = "https://awqfglkuvawvwbvyuyjk.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://awqfglkuvawvwbvyuyjk.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_mXuEy_kf5wzAE8RK8AWM6w_Teh1IAmN";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
 const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
